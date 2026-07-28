@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const ListSchema = new mongoose.Schema({
     title: { type: String, required: true, unique: true },
@@ -7,4 +7,4 @@ const ListSchema = new mongoose.Schema({
     content: { type: Array },
 }, { timestamps: true });
 
-module.exports = mongoose.model("List", ListSchema);
+module.exports = mongoose.model('List', ListSchema);
