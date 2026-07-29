@@ -5,10 +5,12 @@ const mongoose = require('mongoose');
 
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/users');
+const movieRoute = require('./routes/movies');
 
 app.use(express.json());
 app.use('/api/auth', authRoute);
 app.use('/users', userRoute);
+app.use('/movies', movieRoute);
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.bhrgwvi.mongodb.net/${process.env.MONGO_DB_DATABASE}?appName=Cluster0`;
 
