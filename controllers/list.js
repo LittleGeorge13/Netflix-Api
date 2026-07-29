@@ -1,4 +1,5 @@
 const List = require('../models/List');
+const Movie = require('../models/Movie');
 
 exports.postList = async (req, res, next) => {
     if (req.user.isAdmin) {
@@ -51,8 +52,11 @@ exports.getLists = async (req, res, next) => {
         } else {
             list = await List.aggregate([ { $sample: {size :10} } ]);
         }
+        list = await Movie.populate(list, { 
+          path: 'content' 
+        });
         res.status(200).json(list);
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json(error.message);
     }
 }
