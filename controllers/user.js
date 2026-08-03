@@ -57,7 +57,7 @@ exports.getUsers = async (req, res, next) => {
     const query = req.query.new;
     if (req.user.isAdmin) {
         try {
-            const users = query ? await User.find().sort({_id: -1}).limit(2) : await User.find();
+            const users = query ? await User.find().sort({_id: -1}).limit(5) : await User.find();
             if (!users) {
                 return res.status(404).json("Users not found");
             }
@@ -74,21 +74,6 @@ exports.getUsers = async (req, res, next) => {
 exports.getStats = async (req, res, next) => {
     const today = new Date();
     const lastYear = today.setFullYear(today.getFullYear() - 1);
-
-    const monthsArray = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
 
     try {
         const data = await User.aggregate([
