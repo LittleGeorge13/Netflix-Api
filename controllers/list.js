@@ -16,11 +16,26 @@ exports.postList = async (req, res, next) => {
     }
 }
 
+exports.putList = async (req, res, next) => {
+    if (req.user.isAdmin) {
+        try {
+            const updatedList = await List.findByIdAndUpdate(req.params.id, {
+                $set: req.body,
+            }, { returnDocument: 'after' });
+            res.status(200).json(updatedList);
+        } catch (error) {
+            res.status(500).json(error.message);
+        }
+    } else {
+        res.status(500).json('You are not allowed!');
+    }
+}
+
 exports.deleteList = async (req, res, next) => {
     if (req.user.isAdmin) {
         try {
             await List.findByIdAndDelete(req.params.id);
-            res.status(201).json('List deleted successfully');
+            res.status(200).json('List deleted successfully');
         } catch (error) {
             res.status(500).json(error);
         }

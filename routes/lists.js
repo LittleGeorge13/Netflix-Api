@@ -5,6 +5,9 @@ const verifyToken = require('../middleware/isAuth');
 // Create
 router.post('/', verifyToken, listController.postList);
 
+// Update
+router.put('/:id', verifyToken, listController.putList);
+
 // Delete
 router.delete('/:id', verifyToken, listController.deleteList);
 
