@@ -8,7 +8,7 @@ exports.postMovie = async (req, res, next) => {
             const savedMovie = await newMovie.save();
             res.status(201).json(savedMovie);
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json(error.message);
         }
     } else {
         res.status(500).json('You are not allowed!');
@@ -22,9 +22,9 @@ exports.putMovie = async (req, res, next) => {
                 $set: req.body,
             }, { returnDocument: 'after' }
             );
-            res.status(200).json(savedMovie);
+            res.status(200).json(updatedMovie);
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json(error.message);
         }
     } else {
         res.status(500).json('You are not allowed!');
@@ -37,7 +37,7 @@ exports.deleteMovie = async (req, res, next) => {
             await Movie.findByIdAndDelete(req.params.id);
             res.status(200).json('Movie deleted successfully!');
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json(error.message);
         }
     } else {
         res.status(500).json('You are not allowed!');
@@ -49,7 +49,7 @@ exports.getMovieById = async (req, res, next) => {
         const movie = await Movie.findById(req.params.id);
         res.status(200).json(movie);
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json(error.message);
     }
 }
 
@@ -70,7 +70,7 @@ exports.getRandomMovie = async (req, res, next) => {
         }
         res.status(200).json(movie);
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json(error.message);
     }
 }
 
@@ -80,7 +80,7 @@ exports.getMovies = async (req, res, next) => {
             const movies = await Movie.find();
             res.status(200).json(movies.reverse());
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json(error.message);
         }
     } else {
         res.status(403).json('You are not allowed!');
